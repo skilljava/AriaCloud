@@ -1,400 +1,137 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آریا کلاود | زیرساخت ابری پرقدرت</title>
-    
-    <link href="https://fontstatic.com/fonts/iran-sans/font-face.css" rel="stylesheet">
-    
     <style>
-        /* متغیرهای رنگی بر اساس تم تیره و گرادیان نارنجی/طلایی HelixGame */
+        body { transition: opacity ease-in 0.2s; }
+        body[unresolved] { opacity: 0; display: block; overflow: hidden; position: relative; }
+        /* تعریف متغیرهای رنگی برای تم نارنجی AriaCloud */
         :root {
-            --primary-color-rgb: 244, 174, 54; /* زرد/طلایی */
-            --secondary-color-rgb: 249, 115, 22; /* نارنجی */
-            --bg-dark: #121212;
-            --card-dark: #1b1b1b;
-            --text-light: #ffffff;
-            --text-dim: #a0a0a0;
-            --border-glow: 1px solid rgba(255, 255, 255, 0.08);
-            --transition-speed: 0.5s;
+            --color-primary-base: 255, 140, 0; /* نارنجی اصلی */
+            --color-secondary-base: 255, 165, 0; /* نارنجی ثانویه (کمی روشن‌تر) */
+            --toastify-color-error: 220, 20, 60; /* قرمز تیره برای خطا (بدون تغییر) */
+            /* بازنویسی رنگ‌های پیشرفت‌سنج NProgress به تم نارنجی */
         }
-
-        /* --- انیمیشن‌های اصلی --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        #nprogress .bar, #nprogress .peg {
+            background: rgb(var(--color-primary-base));
+            box-shadow: 0 0 10px rgb(var(--color-primary-base)), 0 0 5px rgb(var(--color-primary-base));
         }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        #nprogress .spinner-icon {
+            border-top-color: rgb(var(--color-primary-base));
+            border-left-color: rgb(var(--color-primary-base));
         }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.3); }
-            50% { box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.5); }
-            100% { box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.3); }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'IranSans', Tahoma, sans-serif;
-            transition: all var(--transition-speed) ease-in-out; /* ترنزیشن عمومی روان */
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-            min-height: 100vh;
-            background-image: radial-gradient(at 0% 0%, #30241b 0, transparent 40%),
-                              radial-gradient(at 100% 100%, #15100d 0, transparent 50%);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* المان‌های متحرک */
-        .animated {
-            opacity: 0; /* پیش‌فرض: نامرئی */
-            animation-fill-mode: forwards;
-        }
-
-        .fade-in-down { animation: fadeInDown 0.8s ease-out; }
-        .fade-in-up { animation: fadeInUp 0.8s ease-out; }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: var(--border-glow);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            will-change: transform, box-shadow; /* بهینه‌سازی انیمیشن */
-        }
-
-        /* --- Header & Navigation --- */
-        header {
-            background: rgba(18, 18, 18, 0.9);
-            animation: fadeInDown 0.8s ease-out 0s 1 forwards;
-            /* ... بقیه استایل‌های هدر ... */
-            width: 100%;
-            padding: 1rem 40px;
-            border-bottom: var(--border-glow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo img {
-            height: 35px;
-            filter: grayscale(1) invert(1) brightness(2);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-            font-size: 0.95rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-dim);
-            font-weight: 500;
-        }
-
-        nav a:hover {
-            color: rgb(var(--primary-color-rgb));
-            transform: translateY(-2px);
-        }
-        
+        /* کلاس‌های جدید یا سفارشی که از رنگ اصلی استفاده می‌کنند */
         .btn.gradient {
-            padding: 10px 25px;
-            background: linear-gradient(90deg, rgb(var(--primary-color-rgb)) 0%, rgb(var(--secondary-color-rgb)) 100%);
-            border-radius: 8px;
-            color: var(--bg-dark);
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.4);
+            background: linear-gradient(to right, rgb(var(--color-primary-base)), rgb(var(--color-secondary-base)));
+            color: white; /* متن دکمه گرادیان سفید باشد */
         }
-
-        .btn.secondary {
-            padding: 10px 25px;
-            background: transparent;
-            border: 1px solid rgb(var(--primary-color-rgb));
-            border-radius: 8px;
-            color: rgb(var(--primary-color-rgb));
-            font-weight: 500;
+        .navbar a.logo svg path, .navbar a.logo svg defs stop {
+            /* اطمینان از اعمال رنگ جدید بر روی لوگو SVG در صورت استفاده از color: currentColor */
+            color: rgb(var(--color-primary-base));
         }
-
-        .btn:hover {
-            transform: scale(1.05); /* انیمیشن نرم بزرگ شدن دکمه */
-            box-shadow: 0 0 25px rgba(var(--primary-color-rgb), 0.6);
+        /* بازنویسی Toastify برای استفاده از رنگ‌های تیره در پس‌زمینه (اگر تم تیره باشد) */
+        .Toastify__toast-theme--dark {
+            background: #121212;
+            color: #fff;
         }
-
-        /* --- Hero Section --- */
-        .hero {
-            padding: 120px 0 80px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .hero-content h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(to top, rgb(var(--secondary-color-rgb)), var(--text-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInUp 1s ease-out 0.2s 1 forwards;
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            color: var(--text-dim);
-            animation: fadeInUp 1s ease-out 0.4s 1 forwards;
-        }
-
-        .hero-content .btn {
-            animation: fadeInUp 1s ease-out 0.6s 1 forwards;
-        }
-
-        .hero-visual {
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: fadeInDown 1.2s ease-out 0.8s 1 forwards;
-        }
-
-        .hero-glass-card {
-            width: 85%;
-            height: 85%;
-            padding: 30px;
-            transform: rotateY(5deg);
-            animation: pulseGlow 4s infinite alternate; /* انیمیشن درخشش پالس */
-        }
-
-        .inner-sphere {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(255, 140, 0, 0.8) 10%, rgba(255, 69, 0, 0.5) 50%, transparent 70%);
-            filter: blur(50px);
-            opacity: 0.9;
-            /* انیمیشن پالس داخلی برای جلوه حرکت نور */
-            animation: pulse 5s infinite ease-in-out alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.98); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(1.02); opacity: 0.95; }
-        }
-
-        /* --- Grid Sections --- */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        /* انیمیشن هوشمند کارت‌ها */
-        .feature-card:hover, .pricing-card:hover {
-            border: 1px solid rgba(var(--primary-color-rgb), 0.8);
-            box-shadow: 0 0 35px rgba(var(--primary-color-rgb), 0.7); /* درخشش قوی‌تر */
-            transform: translateY(-8px) scale(1.02); /* حرکت بیشتر و بزرگ شدن جزئی */
-        }
-
-        .pricing-card-special {
-            border: 2px solid rgb(var(--primary-color-rgb)); 
-            box-shadow: 0 0 25px rgba(var(--primary-color-rgb), 0.5);
-            animation: pulseGlow 3s infinite alternate; /* انیمیشن دائمی برای کارت ویژه */
-        }
-        
-        .pricing-card-special:hover {
-             animation-play-state: paused; /* توقف انیمیشن پالس هنگام هاور برای تمرکز روی انیمیشن هاور */
-        }
-        
-        /* اعمال انیمیشن ورود تدریجی روی کارت‌ها */
-        .card-1 { animation: fadeInUp 0.7s ease-out 0.1s 1 forwards; }
-        .card-2 { animation: fadeInUp 0.7s ease-out 0.2s 1 forwards; }
-        .card-3 { animation: fadeInUp 0.7s ease-out 0.3s 1 forwards; }
-
-        /* ... بقیه استایل‌های بخش‌های مختلف ... */
-        .section-title {
-            font-size: 2.2rem;
-            text-align: right;
-            margin-bottom: 50px;
-            color: var(--text-light);
-            font-weight: 700;
-            animation: fadeInUp 1s ease-out 0.1s 1 forwards;
-        }
-        
-        .feature-card h3 { color: rgb(var(--primary-color-rgb)); font-size: 1.5rem; }
-        .feature-card p { color: var(--text-dim); font-size: 0.95rem; }
-
-        .pricing-card h3 { color: rgb(var(--secondary-color-rgb)); font-size: 1.8rem; }
-        
-        .price-details strong {
-            display: block;
-            font-size: 3rem;
-            color: var(--text-light);
-            font-weight: 800;
-        }
-
-        /* --- Responsive --- (بدون تغییر) */
-        @media (max-width: 1024px) {
-            .hero { grid-template-columns: 1fr; padding-top: 80px; }
-            .hero-content { text-align: center; }
-            .hero-content h1 { font-size: 3rem; }
-            .hero-visual { height: 300px; }
-            .grid-3 { grid-template-columns: 1fr; }
+        .Toastify__progress-bar--animated {
+            background: rgb(var(--color-primary-base));
         }
     </style>
+    <style type="text/css">
+        /* تمام استایل‌های Toastify از کد اصلی، اما با استفاده از متغیرهای جدید در صورت امکان */
+        /*... (تمام محتوای Toastify CSS اینجا قرار می‌گیرد) ...*/
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preload" as="image" href="/images/v1-aria.png">
+    <link rel="preload" as="image" href="/images/v2-aria.png">
+    <link rel="preload" as="image" href="/images/v3-aria.png">
+    <link rel="preload" as="image" href="https://api2.ariacloud.ir/storage/images/10753113.webp"> <link rel="stylesheet" href="/_next/static/css/a2cd875fb3789812.css" data-precedence="next">
+    <link rel="stylesheet" href="/_next/static/css/a8424990a00ce6a2.css" data-precedence="next">
+    <link rel="stylesheet" href="/_next/static/css/2c511e0919de686b.css" data-precedence="next">
+
+    <meta name="theme-color" content="#FF8C00"> <meta property="og:locale" content="fa_IR">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AriaCloud"> <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="/favicon-96x96-aria.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon-aria.svg">
+    <link rel="shortcut icon" href="/favicon-aria.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-aria.png">
+    <meta name="apple-mobile-web-app-title" content="AriaCloud"> <link rel="manifest" href="/site-aria.webmanifest">
+    <title>AriaCloud - ارائه‌دهنده خدمات ابری و سرور</title> <meta name="description" content="AriaCloud: خدمات سرور مجازی، گیم سرور، و سایر خدمات ابری با کیفیت و پشتیبانی عالی."> <link rel="canonical" href="https://ariacloud.ir/"> <link rel="icon" href="/favicon-aria.ico" type="image/x-icon" sizes="16x16">
+
+    <style type="text/css">
+        /* استایل‌های Goftino (ثابت نگه داشته می‌شوند) */
+        /* ... (تمام استایل‌های Goftino در اینجا قرار می‌گیرند) ... */
+    </style>
 </head>
-<body>
 
-    <header>
-        <div class="logo">
-            <img src="./Raw Banner-Icon.png" alt="AriaCloud Logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">سرویس‌های ابری</a></li>
-                <li><a href="#">سرور مجازی (VPS)</a></li>
-                <li><a href="#">تعرفه‌ها</a></li>
-                <li><a href="#">اخبار و مقالات</a></li>
-            </ul>
-        </nav>
-        <div style="display: flex; gap: 10px;">
-            <a href="#" class="btn secondary">ورود</a>
-            <a href="#" class="btn gradient">ثبت نام</a>
-        </div>
-    </header>
-
-    <div class="container">
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="animated">زیرساخت ابری قدرتمند، برای آینده کسب و کار شما</h1>
-                <p class="animated">
-                    آریا کلاود با زیرساخت NVMe، شبکه ۱۰ گیگابیتی و پایداری ۹۹.۹٪، بهترین انتخاب برای میزبانی پروژه‌های پرسرعت شماست.
-                </p>
-                <a href="#pricing" class="btn gradient animated" style="padding: 15px 40px; font-size: 1.1rem; color: #121212;">شروع میزبانی</a>
-            </div>
-            <div class="hero-visual animated">
-                <div class="hero-glass-card glass-card">
-                    <div class="inner-sphere"></div>
-                    <h4 style="color: rgb(var(--primary-color-rgb)); margin-bottom: 5px;">Cloud VPS Server</h4>
-                    <p style="color: var(--text-dim); font-size: 0.9rem;">
-                        سرورهای مجازی نسل ۹ با سخت‌افزارهای روز دنیا و مانیتورینگ ۲۴/۷.
-                    </p>
-                    <a href="#" class="btn gradient" style="position: absolute; bottom: 20px; right: 20px; padding: 8px 15px; font-size: 0.9rem;">مشاهده</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="features">
-            <h2 class="section-title animated">ویژگی‌های برجسته آریا کلاود</h2>
-            <div class="grid-3">
-                <div class="feature-card glass-card animated card-1">
-                    <h3>سرعت بی‌رقیب</h3>
-                    <p>اتصال مستقیم و پرسرعت ۱۰ گیگابیتی با پهنای باند کاملاً اختصاصی.</p>
-                </div>
-                <div class="feature-card glass-card animated card-2">
-                    <h3>امنیت تضمین شده</h3>
-                    <p>فایروال سخت‌افزاری پیشرفته و سیستم‌های تشخیص نفوذ فعال.</p>
-                </div>
-                <div class="feature-card glass-card animated card-3">
-                    <h3>پشتیبانی حرفه‌ای</h3>
-                    <p>تیم فنی متخصص آماده پاسخگویی و رفع اشکال در ۲۴ ساعت شبانه‌روز.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="pricing">
-            <h2 class="section-title animated" style="text-align: left;">تعرفه‌های اقتصادی سرور ابری</h2>
-            <div class="grid-3">
-                <div class="pricing-card glass-card animated card-1">
-                    <h3>پلن پایه</h3>
-                    <div class="price-details">
-                        <strong>۲۹۰,۰۰۰</strong> تومان / ماه
-                    </div>
-                    <ul class="price-details" style="text-align: right;">
-                        <li>۲ هسته CPU</li>
-                        <li>۴ گیگابایت RAM</li>
-                        <li>۴۰ گیگابایت NVMe</li>
-                    </ul>
-                    <a href="#" class="btn gradient">انتخاب پلن</a>
-                </div>
-
-                <div class="pricing-card glass-card pricing-card-special animated card-2">
-                    <h3>پلن پیشنهادی</h3>
-                    <div class="price-details">
-                        <strong>۵۵۰,۰۰۰</strong> تومان / ماه
-                    </div>
-                    <ul class="price-details" style="text-align: right;">
-                        <li>۴ هسته CPU</li>
-                        <li>۸ گیگابایت RAM</li>
-                        <li>۸۰ گیگابایت NVMe</li>
-                    </ul>
-                    <a href="#" class="btn gradient">سفارش فوری</a>
-                </div>
-
-                <div class="pricing-card glass-card animated card-3">
-                    <h3>پلن پیشرفته</h3>
-                    <div class="price-details">
-                        <strong>۹۹۰,۰۰۰</strong> تومان / ماه
-                    </div>
-                    <ul class="price-details" style="text-align: right;">
-                        <li>۶ هسته CPU</li>
-                        <li>۱۲ گیگابایت RAM</li>
-                        <li>۱۲۰ گیگابایت NVMe</li>
-                    </ul>
-                    <a href="#" class="btn gradient">انتخاب پلن</a>
-                </div>
-            </div>
-        </section>
-    </div>
-
+<body style="overflow-y: auto;" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        // غیر فعال کردن Observer پس از یک بار نمایش
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1 // وقتی 10% از المان دیده شد
-            });
-
-            // اعمال انیمیشن‌های ورود بر اساس کلاس‌ها
-            document.querySelectorAll('.card-1, .card-2, .card-3, .section-title, .hero-visual').forEach(element => {
-                observer.observe(element);
-            });
-        });
+        !function(){try{var d=document.documentElement,n='data-theme',s='setAttribute';var e=localStorage.getItem('theme');if('system'===e||(!e&&false)){var t='(prefers-color-scheme: dark)',m=window.matchMedia(t);if(m.media!==t||m.matches){d.style.colorScheme = 'dark';d[s](n,'dark')}else{d.style.colorScheme = 'light';d[s](n,'light')}}else if(e){d[s](n,e|| '')}else{d[s](n,'dark')}if(e==='light'||e==='dark'||!e)d.style.colorScheme=e||'dark'}catch(e){}}()
     </script>
-
-</body>
+    
+    <style>
+        /* ... (تمام استایل‌های NProgress در اینجا قرار می‌گیرند و از متغیرهای --color-primary استفاده می‌کنند) ... */
+    </style>
+    
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-content">
+                    <a class="logo aos-init aos-animate" data-aos="fade" aria-label="AriaCloud Logo" href="/">
+                        <svg width="89" height="48" viewBox="0 0 89 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.5 40V40.618L2.05279 40.8944L10.0528 44.8944L11.5 45.618V44V28.6346L18 25.5758V40V40.618L18.5528 40.8944L26.5528 44.8944L28 45.618V44V20V19.382L27.4472 19.1056L19.4472 15.1056L19.0132 14.8886L18.5742 15.0952L11.5 18.4242V8V7.38197L10.9472 7.10557L2.94721 3.10557L1.5 2.38197V4V40Z" fill="currentColor" stroke="url(#paint0_linear_7_1389)" stroke-width="2"></path>
+                            <path d="M46.7704 13.1324L39.6105 16.4385V10.8H37V22.8H39.6105V19.0391L46.7704 15.733V22.8H49.381V10.8H46.7704V13.1324Z" fill="currentColor"></path>
+                            <path d="M61.8115 13.9121C61.5754 13.6921 61.2945 13.5184 60.9721 13.391C60.6498 13.2636 60.3051 13.2 59.9413 13.2H54.5028C54.1389 13.2 53.7974 13.2636 53.4815 13.391C53.1655 13.5184 52.8846 13.6921 52.6421 13.9121C52.3995 14.1322 52.208 14.3869 52.0676 14.6735C51.9271 14.9601 51.8569 15.2699 51.8569 15.6V20.4C51.8569 20.73 51.9271 21.0398 52.0676 21.3264C52.208 21.613 52.3995 21.8677 52.6421 22.0878C52.8846 22.3078 53.1655 22.4815 53.4815 22.6089C53.7974 22.7363 54.1389 22.8 54.5028 22.8H62.5871V20.2668H54.6496V19.2738H62.5871V15.6C62.5871 15.2699 62.5169 14.9601 62.3764 14.6735C62.236 14.3869 62.0477 14.1322 61.8115 13.9121ZM59.7944 17.0562H54.6496V15.7331H59.7944V17.0562Z" fill="currentColor"></path>
+                            <path d="M67.877 10H65.0635V20.3927C65.0635 20.7238 65.1338 21.0345 65.2745 21.322C65.4152 21.6094 65.607 21.865 65.85 22.0857C66.093 22.3064 66.3743 22.4806 66.6908 22.6083C67.0073 22.7361 67.3494 22.8 67.7139 22.8H70.0159V20.2592H67.877V10Z" fill="currentColor"></path>
+                            <path d="M75.7936 10H73.3174V12.4H75.7936V10Z" fill="currentColor"></path>
+                            <path d="M75.7936 13.2H73.3174V22.8H75.7936V13.2Z" fill="currentColor"></path>
+                            <path d="M85.2321 14.5809C84.8296 15.0615 84.4357 15.5276 84.0476 15.9792L81.6959 13.2H79.0952V14.0279L82.4055 17.916L79.0952 21.972V22.8H81.6959L84.0476 19.9194L86.3993 22.8H89V21.972L87.5085 20.1336C87.2102 19.7688 86.9061 19.4041 86.5991 19.0335C86.2892 18.6629 85.9851 18.2924 85.6897 17.916L89 14.0279V13.2H86.3848C86.0199 13.64 85.6376 14.1032 85.235 14.5809H85.2321Z" fill="currentColor"></path>
+                            <path d="M48.6231 25.9168C48.3946 25.6953 48.1239 25.5205 47.8142 25.3923C47.5044 25.2641 47.1736 25.2 46.8157 25.2H39.5442C39.1893 25.2 38.8555 25.2641 38.5487 25.3923C38.239 25.5205 37.9713 25.6953 37.7398 25.9168C37.5112 26.1383 37.3308 26.4005 37.1985 26.7007C37.0662 27.0008 37 27.3214 37 27.6681V34.7318C37 35.0756 37.0662 35.3991 37.1985 35.6992C37.3308 35.9994 37.5112 36.2587 37.7398 36.4831C37.9683 36.7046 38.239 36.8794 38.5487 37.0076C38.8585 37.1358 39.1893 37.2 39.5442 37.2H46.8157C47.1706 37.2 47.5044 37.1358 47.8142 37.0076C48.1239 36.8794 48.3916 36.7046 48.6231 36.4831C48.8547 36.2616 49.0351 35.9994 49.1734 35.6992C49.3118 35.3991 49.381 35.0785 49.381 34.7318V30.2004H44.0009V32.7998H46.6834V34.5977H39.6675V27.7993H46.6834V28.7988H49.381V27.6652C49.381 27.3214 49.3118 26.9979 49.1734 26.6978C49.0351 26.3976 48.8517 26.1383 48.6231 25.9139V25.9168Z" fill="currentColor"></path>
+                            <path d="M60.2206 28.3123C60.0026 28.0923 59.7433 27.9186 59.4458 27.7912C59.1482 27.6638 58.83 27.6001 58.4942 27.6001H51.0317V30.1333H58.3587V31.1263H51.0317V34.8001C51.0317 35.1301 51.0966 35.4399 51.2262 35.7265C51.3558 36.0131 51.5296 36.2679 51.7476 36.4879C51.9656 36.7079 52.2249 36.8816 52.5225 37.009C52.82 37.1364 53.1382 37.2001 53.474 37.2001H60.9365V30.0001C60.9365 29.6701 60.8717 29.3603 60.7421 29.0737C60.6124 28.7871 60.4386 28.5323 60.2206 28.3123ZM58.3587 34.6669H53.6096V33.3439H58.3587V34.6669Z" fill="currentColor"></path>
+                            <path d="M75.9088 28.3123C75.6934 28.0923 75.4372 27.9186 75.1432 27.7912C74.8492 27.6638 74.5348 27.6001 74.2029 27.6001H62.5874V37.2001H65.1347V30.1333H68.3311V37.2001H70.8929V30.1333H74.0894V37.2001H76.6191V30.0001C76.6191 29.6701 76.5551 29.3603 76.427 29.0737C76.2989 28.7871 76.1272 28.5323 75.9117 28.3123H75.9088Z" fill="currentColor"></path>
+                            <path d="M89.0002 33.6739V30.0001C89.0002 29.6701 88.93 29.3603 88.7895 29.0737C88.6491 28.7871 88.4608 28.5323 88.2246 28.3123C87.9884 28.0923 87.7076 27.9186 87.3852 27.7912C87.0629 27.6638 86.7182 27.6001 86.3543 27.6001H80.9159C80.552 27.6001 80.2105 27.6638 79.8945 27.7912C79.5786 27.9186 79.2977 28.0923 79.0552 28.3123C78.8126 28.5323 78.6211 28.7871 78.4807 29.0737C78.3402 29.3603 78.27 29.6701 78.27 30.0001V34.8001C78.27 35.1301 78.3402 35.4399 78.4807 35.7265C78.6211 36.0131 78.8126 36.2679 79.0552 36.4879C79.2977 36.7079 79.5786 36.8816 79.8945 37.009C80.2105 37.1364 80.552 37.2001 80.9159 37.2001H89.0002V34.6669H81.0627V33.6739H89.0002ZM81.0627 30.1333H86.2075V31.4563H81.0627V30.1333Z" fill="currentColor"></path>
+                            <defs>
+                                <linearGradient id="paint0_linear_7_1389" x1="2.5" y1="24" x2="27" y2="24" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="rgb(var(--color-primary-base))"></stop>
+                                    <stop offset="1" stop-color="rgb(var(--color-secondary-base))"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </a>
+                    
+                    <div class="links">
+                        <div class="item dropdown aos-init aos-animate" data-aos="fade-left" data-aos-delay="100">
+                            <div class="icon"><div><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m19.33 5.681-6.27-3.38c-.66-.36-1.46-.36-2.12 0l-6.27 3.38c-.46.25-.74.73-.74 1.28 0 .54.28 1.03.74 1.28l6.27 3.38c.33.18.7.27 1.06.27.36 0 .73-.09 1.06-.27l6.27-3.38c.46-.25.74-.73.74-1.28s-.28-1.03-.74-1.28Z" fill="currentColor"></path><path opacity=".4" d="M9.91 12.79 4.07 9.87c-.45-.22-.97-.2-1.39.06-.43.27-.68.72-.68 1.22v5.51c0 .95.53 1.81 1.38 2.24l5.83 2.92a1.442 1.442 0 0 0 1.39-.06c.43-.26.68-.72.68-1.22v-5.51c.01-.96-.52-1.82-1.37-2.24ZM21.32 9.93c-.43-.26-.95-.29-1.39-.06l-5.83 2.92c-.85.43-1.38 1.28-1.38 2.24v5.51c0 .5.25.96.68 1.22a1.442 1.442 0 0 0 1.39.06l5.83-2.92c.85-.43 1.38-1.28 1.38-2.24v-5.51c0-.5-.25-.95-.68-1.22Z" fill="currentColor"></path></svg></div></div>سرور مجازی</div>
+                        
+                        <div class="item dropdown aos-init aos-animate" data-aos="fade-left" data-aos-delay="200">
+                            <div class="icon"><div><svg width="19" height="19" class="icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 0H4C1.79 0 0 1.79 0 4V14C0 16.21 1.79 18 4 18H14C16.21 18 18 16.21 18 14V4C18 1.79 16.21 0 14 0ZM14.24 7.3H10.75V9H12.49V14.2H10.75V12.49H7.26V14.2H5.51V9H7.25V7.3H3.77V3.8H7.26V7.3H10.75V3.8H14.24V7.3Z" fill="currentColor"></path></svg></div></div>گیم سرور</div>
+                        
+                        <div class="item dropdown aos-init aos-animate" data-aos="fade-left" data-aos-delay="300">
+                            <div class="icon"><div><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 7.52v5.88c0 .34-.33.58-.65.48l-3.93-1.22a3.02 3.02 0 0 0-3.78 3.79l1.21 3.9c.1.32-.14.65-.48.65H7.52C4.07 21 2 18.94 2 15.48V7.52C2 4.06 4.07 2 7.52 2h7.96C18.93 2 21 4.06 21 7.52Z" fill="currentColor"></path><path d="m21.96 18.838-1.63.55c-.45.15-.81.5-.96.96l-.55 1.63c-.47 1.41-2.45 1.38-2.89-.03l-1.85-5.95c-.36-1.18.73-2.28 1.9-1.91l5.96 1.85c1.4.44 1.42 2.43.02 2.9Z" fill="currentColor"></path></svg></div></div>سایر خدمات</div>
+                        
+                        <a class="item aos-init aos-animate" data-aos="fade-left" data-aos-delay="400" href="https://ariacloud.ir/blog/"> <div class="icon"><div><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20.5 10.19h-2.89c-2.37 0-4.3-1.93-4.3-4.3V3c0-.55-.45-1-1-1H8.07C4.99 2 2.5 4 2.5 7.57v8.86C2.5 20 4.99 22 8.07 22h7.86c3.08 0 5.57-2 5.57-5.57v-5.24c0-.55-.45-1-1-1Z" fill="currentColor"></path><path d="M15.8 2.21c-.41-.41-1.12-.13-1.12.44v3.49c0 1.46 1.24 2.67 2.75 2.67.95.01 2.27.01 3.4.01.57 0 .87-.67.47-1.07-1.44-1.45-4.02-4.06-5.5-5.54Z" fill="currentColor"></path></svg></div></div>اخبار و مقالات
+                        </a>
+                        
+                        <a class="item aos-init aos-animate" data-aos="fade-left" data-aos-delay="500" href="https://ariacloud.ir/about-us/"> <div class="icon"><div><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m21.56 10.738-1.35-1.58c-.25-.3-.46-.86-.46-1.26v-1.7c0-1.06-.87-1.93-1.93-1.93h-1.7c-.4 0-.97-.21-1.27-.46l-1.58-1.35c-.69-.59-1.82-.59-2.51 0l-1.6 1.35c-.3.25-.86.46-1.26.46H6.17c-1.06 0-1.93.87-1.93 1.93v1.7c0 .39-.2.95-.45 1.25l-1.35 1.59c-.58.7-.58 1.82 0 2.5l1.35 1.59c.25.29.45.86.45 1.25v1.71c0 1.06.87 1.93 1.93 1.93h1.74c.39 0 .96.21 1.26.46l1.58 1.35c.69.59 1.82.59 2.51 0l1.58-1.35c.3-.25.86-.46 1.26-.46h1.7c1.06 0 1.93-.87 1.93-1.93v-1.7c0-.4.21-.96.46-1.26l1.35-1.58c.61-.68.61-1.81.02-2.51Zm-10.31-2.61c0-.41.34-.75.75-.75s.75.34.75.75v4.83c0 .41-.34.75-.75.75s-.75-.34-.75-.75v-4.83Zm.75 8.74c-.55 0-1-.45-1-1s.44-1 1-1c.55 0 1 .45 1 1s-.44 1-1 1Z" fill="currentColor"></path></svg></div></div>درباره ما
+                        </a>
+                    </div>
+                    
+                    <div class="actions">
+                        <div class="buttons aos-init aos-animate" data-aos="fade" data-aos-delay="600">
+                            <a class="btn secondary" href="https://my.ariacloud.ir/login">ورود</a> <a class="btn gradient" href="https://my.ariacloud.ir/register.php"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                    <path opacity=".4" d="M21.09 21.5c0 .28-.22.5-.5.5H3.41c-.28 0-.5-.22-.5-.5 0-4.14 4.08-7.5 9.09-7.5 1.03 0 2.03.14 2.95.41-.59.7-.95 1.61-.95 2.59 
+                                    </svg>
+                                ثبت نام
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    </body>
 </html>
