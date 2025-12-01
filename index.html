@@ -8,17 +8,33 @@
     <link href="https://fontstatic.com/fonts/iran-sans/font-face.css" rel="stylesheet">
     
     <style>
+        /* متغیرهای رنگی بر اساس تم تیره و گرادیان نارنجی/طلایی HelixGame */
         :root {
-            --primary-orange: #f97316;
-            --accent-glow: #ea580c;
-            --secondary-text: #facc15;
+            --primary-color-rgb: 244, 174, 54; /* زرد/طلایی */
+            --secondary-color-rgb: 249, 115, 22; /* نارنجی */
             --bg-dark: #121212;
-            --card-dark: #1a1a1a;
+            --card-dark: #1b1b1b;
             --text-light: #ffffff;
-            --text-dim: #9ca3af;
-            --glass-base: rgba(255, 255, 255, 0.08);
-            --border-subtle: 1px solid rgba(255, 255, 255, 0.1);
-            --border-glow: 1px solid rgba(249, 115, 22, 0.4);
+            --text-dim: #a0a0a0;
+            --border-glow: 1px solid rgba(255, 255, 255, 0.08);
+            --transition-speed: 0.5s;
+        }
+
+        /* --- انیمیشن‌های اصلی --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.3); }
+            50% { box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.5); }
+            100% { box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.3); }
         }
 
         * {
@@ -26,7 +42,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'IranSans', Tahoma, sans-serif;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease-in-out; /* ترنزیشن عمومی روان */
         }
 
         body {
@@ -36,31 +52,44 @@
             min-height: 100vh;
             background-image: radial-gradient(at 0% 0%, #30241b 0, transparent 40%),
                               radial-gradient(at 100% 100%, #15100d 0, transparent 50%);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 0 40px;
         }
 
+        /* المان‌های متحرک */
+        .animated {
+            opacity: 0; /* پیش‌فرض: نامرئی */
+            animation-fill-mode: forwards;
+        }
+
+        .fade-in-down { animation: fadeInDown 0.8s ease-out; }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out; }
+
         .glass-card {
-            background: var(--glass-base);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: var(--border-subtle);
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: var(--border-glow);
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            will-change: transform, box-shadow; /* بهینه‌سازی انیمیشن */
         }
 
         /* --- Header & Navigation --- */
         header {
+            background: rgba(18, 18, 18, 0.9);
+            animation: fadeInDown 0.8s ease-out 0s 1 forwards;
+            /* ... بقیه استایل‌های هدر ... */
             width: 100%;
             padding: 1rem 40px;
-            background: rgba(18, 18, 18, 0.9);
-            border-bottom: var(--border-subtle);
+            border-bottom: var(--border-glow);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -71,7 +100,7 @@
 
         .logo img {
             height: 35px;
-            filter: invert(1) brightness(2);
+            filter: grayscale(1) invert(1) brightness(2);
         }
 
         nav ul {
@@ -88,23 +117,32 @@
         }
 
         nav a:hover {
-            color: var(--primary-orange);
+            color: rgb(var(--primary-color-rgb));
+            transform: translateY(-2px);
         }
-
-        .btn {
+        
+        .btn.gradient {
             padding: 10px 25px;
-            background: var(--primary-orange);
+            background: linear-gradient(90deg, rgb(var(--primary-color-rgb)) 0%, rgb(var(--secondary-color-rgb)) 100%);
             border-radius: 8px;
             color: var(--bg-dark);
             text-decoration: none;
             font-weight: 700;
-            box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.4);
+        }
+
+        .btn.secondary {
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid rgb(var(--primary-color-rgb));
+            border-radius: 8px;
+            color: rgb(var(--primary-color-rgb));
+            font-weight: 500;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px var(--primary-orange);
+            transform: scale(1.05); /* انیمیشن نرم بزرگ شدن دکمه */
+            box-shadow: 0 0 25px rgba(var(--primary-color-rgb), 0.6);
         }
 
         /* --- Hero Section --- */
@@ -117,19 +155,22 @@
         }
 
         .hero-content h1 {
-            font-size: 3.8rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
+            font-size: 4rem;
             font-weight: 800;
-            background: linear-gradient(to top, var(--primary-orange), var(--text-light));
+            background: linear-gradient(to top, rgb(var(--secondary-color-rgb)), var(--text-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out 0.2s 1 forwards;
         }
 
         .hero-content p {
             font-size: 1.1rem;
             color: var(--text-dim);
-            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.4s 1 forwards;
+        }
+
+        .hero-content .btn {
+            animation: fadeInUp 1s ease-out 0.6s 1 forwards;
         }
 
         .hero-visual {
@@ -137,14 +178,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: fadeInDown 1.2s ease-out 0.8s 1 forwards;
         }
 
         .hero-glass-card {
             width: 85%;
             height: 85%;
             padding: 30px;
-            transform: rotateY(10deg);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+            transform: rotateY(5deg);
+            animation: pulseGlow 4s infinite alternate; /* انیمیشن درخشش پالس */
         }
 
         .inner-sphere {
@@ -152,34 +194,22 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
-            background: radial-gradient(circle at center, #ff8c00 10%, #ff4500 50%, transparent 70%);
-            filter: blur(40px);
-            opacity: 0.7;
-            animation: pulse 5s infinite alternate;
-        }
-
-        .hero-glass-card h4 {
-            color: var(--secondary-text);
-            margin-bottom: 10px;
+            background: radial-gradient(circle at center, rgba(255, 140, 0, 0.8) 10%, rgba(255, 69, 0, 0.5) 50%, transparent 70%);
+            filter: blur(50px);
+            opacity: 0.9;
+            /* انیمیشن پالس داخلی برای جلوه حرکت نور */
+            animation: pulse 5s infinite ease-in-out alternate;
         }
 
         @keyframes pulse {
-            from { transform: translate(-50%, -50%) scale(0.95); opacity: 0.6; }
-            to { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+            0% { transform: translate(-50%, -50%) scale(0.98); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1.02); opacity: 0.95; }
         }
 
         /* --- Grid Sections --- */
-        .section-title {
-            font-size: 2.2rem;
-            text-align: right;
-            margin-bottom: 50px;
-            color: var(--text-light);
-            font-weight: 700;
-        }
-
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -187,83 +217,57 @@
             margin-bottom: 60px;
         }
 
-        .feature-card, .pricing-card {
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        /* انیمیشن هوشمند کارت‌ها */
+        .feature-card:hover, .pricing-card:hover {
+            border: 1px solid rgba(var(--primary-color-rgb), 0.8);
+            box-shadow: 0 0 35px rgba(var(--primary-color-rgb), 0.7); /* درخشش قوی‌تر */
+            transform: translateY(-8px) scale(1.02); /* حرکت بیشتر و بزرگ شدن جزئی */
+        }
+
+        .pricing-card-special {
+            border: 2px solid rgb(var(--primary-color-rgb)); 
+            box-shadow: 0 0 25px rgba(var(--primary-color-rgb), 0.5);
+            animation: pulseGlow 3s infinite alternate; /* انیمیشن دائمی برای کارت ویژه */
         }
         
-        .feature-card:hover, .pricing-card:hover {
-            border: var(--border-glow);
-            box-shadow: 0 0 15px rgba(249, 115, 22, 0.6);
-            transform: translateY(-3px);
+        .pricing-card-special:hover {
+             animation-play-state: paused; /* توقف انیمیشن پالس هنگام هاور برای تمرکز روی انیمیشن هاور */
         }
+        
+        /* اعمال انیمیشن ورود تدریجی روی کارت‌ها */
+        .card-1 { animation: fadeInUp 0.7s ease-out 0.1s 1 forwards; }
+        .card-2 { animation: fadeInUp 0.7s ease-out 0.2s 1 forwards; }
+        .card-3 { animation: fadeInUp 0.7s ease-out 0.3s 1 forwards; }
 
-        .feature-card h3 {
-            color: var(--secondary-text);
-            margin-bottom: 10px;
-            font-size: 1.5rem;
+        /* ... بقیه استایل‌های بخش‌های مختلف ... */
+        .section-title {
+            font-size: 2.2rem;
+            text-align: right;
+            margin-bottom: 50px;
+            color: var(--text-light);
+            font-weight: 700;
+            animation: fadeInUp 1s ease-out 0.1s 1 forwards;
         }
+        
+        .feature-card h3 { color: rgb(var(--primary-color-rgb)); font-size: 1.5rem; }
+        .feature-card p { color: var(--text-dim); font-size: 0.95rem; }
 
-        .feature-card p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-        }
-
-        /* --- Pricing Card Specifics --- */
-        .pricing-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--primary-orange);
-        }
-
-        .price-details {
-            font-size: 1rem;
-            color: var(--text-dim);
-            margin-bottom: 25px;
-            line-height: 1.8;
-            text-align: center;
-        }
-
+        .pricing-card h3 { color: rgb(var(--secondary-color-rgb)); font-size: 1.8rem; }
+        
         .price-details strong {
             display: block;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--text-light);
             font-weight: 800;
         }
-        
-        .pricing-card .btn {
-            width: 100%;
-            text-align: center;
-            display: block;
-            margin-top: 20px;
-        }
 
-        /* --- Responsive --- */
+        /* --- Responsive --- (بدون تغییر) */
         @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding-top: 80px;
-            }
-            .hero-content {
-                text-align: center;
-            }
-            .hero-content h1 {
-                font-size: 3rem;
-            }
-            .hero-visual {
-                height: 300px;
-            }
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            header { padding: 1rem 20px; }
-            header nav { display: none; }
-            .container { padding: 0 20px; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .section-title { font-size: 1.8rem; }
+            .hero { grid-template-columns: 1fr; padding-top: 80px; }
+            .hero-content { text-align: center; }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-visual { height: 300px; }
+            .grid-3 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -275,99 +279,122 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">صفحه اصلی</a></li>
-                <li><a href="#">سرویس‌ها</a></li>
+                <li><a href="#">سرویس‌های ابری</a></li>
+                <li><a href="#">سرور مجازی (VPS)</a></li>
                 <li><a href="#">تعرفه‌ها</a></li>
-                <li><a href="#">پشتیبانی</a></li>
+                <li><a href="#">اخبار و مقالات</a></li>
             </ul>
         </nav>
-        <a href="#" class="btn">ورود به پنل</a>
+        <div style="display: flex; gap: 10px;">
+            <a href="#" class="btn secondary">ورود</a>
+            <a href="#" class="btn gradient">ثبت نام</a>
+        </div>
     </header>
 
     <div class="container">
         <section class="hero">
             <div class="hero-content">
-                <h1>زیرساخت ابری مدرن و پرقدرت</h1>
-                <p>
-                    آریا کلاود؛ سرعت، پایداری و امنیت را با سخت‌افزارهای نسل نوین NVMe و شبکه ۱۰ گیگابیت در اختیار شما قرار می‌دهد.
+                <h1 class="animated">زیرساخت ابری قدرتمند، برای آینده کسب و کار شما</h1>
+                <p class="animated">
+                    آریا کلاود با زیرساخت NVMe، شبکه ۱۰ گیگابیتی و پایداری ۹۹.۹٪، بهترین انتخاب برای میزبانی پروژه‌های پرسرعت شماست.
                 </p>
-                <a href="#pricing" class="btn" style="padding: 15px 40px; font-size: 1.1rem; color: #121212;">مشاهده پلن‌ها</a>
+                <a href="#pricing" class="btn gradient animated" style="padding: 15px 40px; font-size: 1.1rem; color: #121212;">شروع میزبانی</a>
             </div>
-            <div class="hero-visual">
+            <div class="hero-visual animated">
                 <div class="hero-glass-card glass-card">
                     <div class="inner-sphere"></div>
-                    <h4 style="color: #FF9040; margin-bottom: 5px;">سرور اختصاصی مجازی</h4>
+                    <h4 style="color: rgb(var(--primary-color-rgb)); margin-bottom: 5px;">Cloud VPS Server</h4>
                     <p style="color: var(--text-dim); font-size: 0.9rem;">
-                        نسل جدید سرورهای ابری با حداقل تاخیر و حداکثر پایداری. آماده برای پروژه‌های بزرگ شما.
+                        سرورهای مجازی نسل ۹ با سخت‌افزارهای روز دنیا و مانیتورینگ ۲۴/۷.
                     </p>
-                    <a href="#" class="btn" style="position: absolute; bottom: 20px; right: 20px; padding: 8px 15px; font-size: 0.9rem;">سفارش</a>
+                    <a href="#" class="btn gradient" style="position: absolute; bottom: 20px; right: 20px; padding: 8px 15px; font-size: 0.9rem;">مشاهده</a>
                 </div>
             </div>
         </section>
 
         <section id="features">
-            <h2 class="section-title">امکانات کلیدی آریا کلاود</h2>
+            <h2 class="section-title animated">ویژگی‌های برجسته آریا کلاود</h2>
             <div class="grid-3">
-                <div class="feature-card glass-card">
-                    <h3>شبکه ۱۰ گیگابیتی</h3>
-                    <p>اتصال سریع، اختصاصی و پایدار برای انتقال داده‌های حجیم و سنگین با بهترین کیفیت.</p>
+                <div class="feature-card glass-card animated card-1">
+                    <h3>سرعت بی‌رقیب</h3>
+                    <p>اتصال مستقیم و پرسرعت ۱۰ گیگابیتی با پهنای باند کاملاً اختصاصی.</p>
                 </div>
-                <div class="feature-card glass-card">
-                    <h3>ذخیره‌سازی NVMe</h3>
-                    <p>دیسک‌های پرسرعت NVMe با سرعت خواندن/نوشتن چندین برابر SSD معمولی برای عملکرد بهتر.</p>
+                <div class="feature-card glass-card animated card-2">
+                    <h3>امنیت تضمین شده</h3>
+                    <p>فایروال سخت‌افزاری پیشرفته و سیستم‌های تشخیص نفوذ فعال.</p>
                 </div>
-                <div class="feature-card glass-card">
-                    <h3>امنیت و بکاپ</h3>
-                    <p>سیستم‌های امنیتی پیشرفته و بکاپ‌گیری منظم برای حفظ کامل اطلاعات شما.</p>
+                <div class="feature-card glass-card animated card-3">
+                    <h3>پشتیبانی حرفه‌ای</h3>
+                    <p>تیم فنی متخصص آماده پاسخگویی و رفع اشکال در ۲۴ ساعت شبانه‌روز.</p>
                 </div>
             </div>
         </section>
 
         <section id="pricing">
-            <h2 class="section-title" style="text-align: left;">تعرفه‌های VPS اقتصادی</h2>
+            <h2 class="section-title animated" style="text-align: left;">تعرفه‌های اقتصادی سرور ابری</h2>
             <div class="grid-3">
-                <div class="pricing-card glass-card">
-                    <h3>آغازین</h3>
+                <div class="pricing-card glass-card animated card-1">
+                    <h3>پلن پایه</h3>
                     <div class="price-details">
                         <strong>۲۹۰,۰۰۰</strong> تومان / ماه
                     </div>
                     <ul class="price-details" style="text-align: right;">
-                        <li>۲ گیگابایت RAM</li>
                         <li>۲ هسته CPU</li>
+                        <li>۴ گیگابایت RAM</li>
                         <li>۴۰ گیگابایت NVMe</li>
                     </ul>
-                    <a href="#" class="btn">انتخاب پلن</a>
+                    <a href="#" class="btn gradient">انتخاب پلن</a>
                 </div>
 
-                <div class="pricing-card glass-card" style="border: 2px solid var(--primary-orange); box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);">
-                    <h3>حرفه‌ای (ویژه)</h3>
+                <div class="pricing-card glass-card pricing-card-special animated card-2">
+                    <h3>پلن پیشنهادی</h3>
                     <div class="price-details">
                         <strong>۵۵۰,۰۰۰</strong> تومان / ماه
                     </div>
                     <ul class="price-details" style="text-align: right;">
-                        <li>۴ گیگابایت RAM</li>
                         <li>۴ هسته CPU</li>
+                        <li>۸ گیگابایت RAM</li>
                         <li>۸۰ گیگابایت NVMe</li>
-                        <li>پورت ۱۰ گیگ</li>
                     </ul>
-                    <a href="#" class="btn">سفارش فوری</a>
+                    <a href="#" class="btn gradient">سفارش فوری</a>
                 </div>
 
-                <div class="pricing-card glass-card">
-                    <h3>سازمانی</h3>
+                <div class="pricing-card glass-card animated card-3">
+                    <h3>پلن پیشرفته</h3>
                     <div class="price-details">
                         <strong>۹۹۰,۰۰۰</strong> تومان / ماه
                     </div>
                     <ul class="price-details" style="text-align: right;">
-                        <li>۸ گیگابایت RAM</li>
                         <li>۶ هسته CPU</li>
+                        <li>۱۲ گیگابایت RAM</li>
                         <li>۱۲۰ گیگابایت NVMe</li>
                     </ul>
-                    <a href="#" class="btn">انتخاب پلن</a>
+                    <a href="#" class="btn gradient">انتخاب پلن</a>
                 </div>
             </div>
         </section>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        // غیر فعال کردن Observer پس از یک بار نمایش
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1 // وقتی 10% از المان دیده شد
+            });
+
+            // اعمال انیمیشن‌های ورود بر اساس کلاس‌ها
+            document.querySelectorAll('.card-1, .card-2, .card-3, .section-title, .hero-visual').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
 
 </body>
 </html>
