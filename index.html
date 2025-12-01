@@ -60,11 +60,20 @@
             justify-content: space-between;
             align-items: center;
         }
-        .logo {
-            color: var(--primary-color);
-            font-weight: 900;
-            font-size: 1.8rem;
+        
+        /* استایل لوگوی تصویری جدید */
+        .logo-img {
+            height: 40px; /* ارتفاع لوگو را تنظیم کنید */
+            width: auto;
+            /* اگر لوگو سیاه است، آن را سفید کرده و یک درخشش ملایم نارنجی می‌دهیم تا روی پس‌زمینه تیره دیده شود */
+            filter: invert(1) drop-shadow(0 0 5px rgba(255, 127, 0, 0.5)); 
         }
+        .logo-link {
+            display: flex; /* برای تنظیم عمودی لوگو */
+            align-items: center;
+            text-decoration: none;
+        }
+        
         .nav-links a {
             margin: 0 15px;
             font-weight: 400;
@@ -158,7 +167,6 @@
             background: 
                 radial-gradient(circle at 10% 20%, var(--primary-color) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, var(--primary-color) 0%, transparent 15%);
-            /* می‌توانید از یک تصویر انتزاعی فضای ابری یا ستاره‌ای نیز استفاده کنید */
         }
 
         /* ====================================================== */
@@ -196,12 +204,12 @@
         }
         .feature-card:hover {
             transform: translateY(-5px);
-            border-bottom-color: var(--primary-color); /* تأکید با رنگ نارنجی */
+            border-bottom-color: var(--primary-color); 
         }
         .feature-card .icon-wrapper {
             font-size: 2.5rem;
             color: var(--primary-color);
-            background-color: rgba(255, 127, 0, 0.1); /* پس‌زمینه آیکون کم‌رنگ */
+            background-color: rgba(255, 127, 0, 0.1); 
             width: 70px;
             height: 70px;
             border-radius: 50%;
@@ -266,7 +274,9 @@
     <header>
         <div class="navbar">
             <div class="container">
-                <h1 class="logo">AriaCloud</h1>
+                <a href="/" class="logo-link">
+                    <img src="Raw Banner-Icon.png" alt="AriaCloud Logo" class="logo-img">
+                </a>
                 <nav class="nav-links">
                     <a href="#services">خدمات</a>
                     <a href="#pricing">تعرفه‌ها</a>
