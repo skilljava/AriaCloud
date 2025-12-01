@@ -14,7 +14,7 @@
         :root {
             --primary-color: #FF7F00; /* نارنجی پررنگ و جذاب (تم اصلی) */
             --accent-color: #FFA500; /* نارنجی روشن‌تر برای گرادیانت و درخشش */
-            --background-dark: #101020; /* آبی تیره عمیق‌تر برای کنتراست بیشتر */
+            --background-dark: #0A0A15; /* آبی تیره بسیار عمیق برای حس فضا */
             --background-card: #1C1C36; /* رنگ کمی روشن‌تر برای کارت‌ها */
             --text-light: #F4F4F4;
             --text-secondary: #AAAAAA;
@@ -51,15 +51,16 @@
             margin-bottom: 4rem;
         }
         .section-header h3 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
             margin-bottom: 0.5rem;
             color: var(--primary-color);
             position: relative;
             display: inline-block;
+            text-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
         }
         .section-header p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--text-secondary);
         }
 
@@ -71,8 +72,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(16, 16, 32, 0.98); 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            background: rgba(10, 10, 21, 0.98); 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
         }
         .navbar .container {
             display: flex;
@@ -80,15 +81,15 @@
             align-items: center;
         }
         
-        /* استایل لوگوی تصویری جدید (ارتفاع 60px) */
+        /* استایل لوگوی تصویری جدید (ارتفاع 75px) */
         .logo-img {
-            height: 60px;
+            height: 75px; /* **تغییر اعمال شده (بزرگتر)** */
             width: auto;
-            filter: invert(1) drop-shadow(0 0 8px var(--primary-color)); /* درخشش قوی‌تر نارنجی */
+            filter: invert(1) drop-shadow(0 0 10px var(--primary-color)); 
             transition: filter 0.3s;
         }
         .logo-img:hover {
-            filter: invert(1) drop-shadow(0 0 15px var(--accent-color));
+            filter: invert(1) drop-shadow(0 0 20px var(--accent-color));
         }
         .logo-link {
             display: flex;
@@ -102,14 +103,15 @@
         }
         .nav-links a:hover {
             color: var(--primary-color);
+            text-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
         }
 
         /* ====================================================== */
         /* --- دکمه‌ها (Buttons) --- */
         /* ====================================================== */
         .btn {
-            padding: 10px 25px;
-            border-radius: 50px; /* گردتر شدن دکمه‌ها */
+            padding: 12px 30px;
+            border-radius: 50px; 
             font-weight: 700;
             transition: transform 0.3s, box-shadow 0.3s;
             display: inline-block;
@@ -118,8 +120,8 @@
             text-align: center;
         }
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
         }
         .primary-btn {
             background-color: transparent;
@@ -130,19 +132,16 @@
             background-color: var(--primary-color);
             color: var(--background-dark);
         }
-        .cta-btn { /* دکمه اصلی (فراخوان) با انیمیشن درخشش */
+        .cta-btn { 
             background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             color: var(--background-dark);
-            font-size: 1.1rem;
-            padding: 15px 40px;
+            font-size: 1.2rem;
+            padding: 16px 45px;
             margin-left: 20px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 10px var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color);
         }
-        /* انیمیشن درخشش ملایم */
         .cta-btn:hover {
-             box-shadow: 0 0 30px var(--accent-color);
+             box-shadow: 0 0 40px var(--accent-color);
         }
         .secondary-btn {
             background-color: transparent;
@@ -159,34 +158,17 @@
         /* ====================================================== */
         .hero-section {
             position: relative;
-            padding: 10rem 0 8rem; 
+            padding: 12rem 0 10rem; 
             text-align: center;
             overflow: hidden;
-            min-height: 85vh; /* افزایش ارتفاع برای فضای بیشتر */
+            min-height: 90vh; 
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .hero-content h2 {
-            font-size: 4rem; /* بزرگتر شدن عنوان */
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        .hero-content p {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            margin-bottom: 3.5rem;
-        }
-        /* جلوه فضایی/ابری در پس‌زمینه */
-        .star-bg {
+        /* جلوه پس‌زمینه فضایی پویاتر */
+        .hero-section::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
@@ -196,23 +178,44 @@
             background: 
                 radial-gradient(circle at 10% 20%, var(--primary-color) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, var(--accent-color) 0%, transparent 15%);
-            animation: moveGradient 20s infinite alternate linear;
+            animation: moveGradient 30s infinite alternate linear;
+            z-index: 1;
         }
         @keyframes moveGradient {
             from {
                 transform: translate(0, 0);
             }
             to {
-                transform: translate(5%, 5%);
+                transform: translate(8%, 8%);
             }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-content h2 {
+            font-size: 4.5rem; 
+            font-weight: 900;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
         }
 
         /* ====================================================== */
-        /* --- بخش ویژگی‌ها (Features Section) بهبود یافته --- */
+        /* --- بخش ویژگی‌ها (Features Section) --- */
         /* ====================================================== */
         .features-section {
             padding: 6rem 0;
+            position: relative;
             background-color: var(--background-dark);
+            z-index: 1;
         }
         
         .features-grid {
@@ -222,82 +225,86 @@
         }
         .feature-card {
             background: var(--background-card); 
-            padding: 30px;
-            border-radius: 20px; /* گوشه‌های گردتر */
+            padding: 35px;
+            border-radius: 20px; 
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s, box-shadow 0.4s;
-            border: 1px solid rgba(255, 127, 0, 0.2); /* حاشیه کم‌رنگ */
+            border: 1px solid rgba(255, 127, 0, 0.1); 
             text-align: right;
             position: relative;
         }
         .feature-card:hover {
-            transform: translateY(-8px); /* جهش بیشتر در هاور */
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 127, 0, 0.4); /* درخشش ملایم نارنجی در هاور */
+            transform: translateY(-10px); 
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 127, 0, 0.5);
         }
         .feature-card .icon-wrapper {
-            font-size: 2.8rem;
+            font-size: 3rem;
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             box-shadow: 0 0 15px rgba(255, 127, 0, 0.3);
-            border: 2px solid var(--primary-color);
+            border: 3px solid var(--primary-color);
         }
         .feature-card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             color: var(--text-light);
-            font-weight: 700;
+            font-weight: 900;
         }
         .feature-card p {
             color: var(--text-secondary);
         }
         
         /* ====================================================== */
-        /* --- بخش قیمت‌گذاری (Pricing Section) جدید --- */
+        /* --- بخش قیمت‌گذاری (Pricing Section) --- */
         /* ====================================================== */
         .pricing-section {
             padding: 6rem 0;
-            background-color: var(--background-dark);
+            background-color: #101020;
         }
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            align-items: center;
+            align-items: stretch; /* مطمئن شدن از هم‌اندازه بودن کارت‌ها */
         }
         .pricing-card {
             background-color: var(--background-card);
             padding: 40px 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .pricing-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
         
         .pricing-card h4 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 900;
             color: var(--primary-color);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .pricing-card .price {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 900;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             line-height: 1;
         }
         .pricing-card .price span {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 400;
             color: var(--text-secondary);
         }
@@ -306,10 +313,11 @@
             padding: 0;
             margin: 30px 0;
             text-align: right;
+            flex-grow: 1;
         }
         .pricing-card ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -321,55 +329,204 @@
 
         /* استایل خاص برای پلن پیشنهادی */
         .recommended-card {
-            border: 3px solid var(--primary-color);
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 127, 0, 0.5);
-            padding: 50px 30px; /* افزایش پدینگ برای برجستگی */
+            border: 4px solid var(--primary-color);
+            transform: scale(1.08);
+            box-shadow: 0 0 50px rgba(255, 127, 0, 0.7);
+        }
+        .recommended-card:hover {
+            transform: scale(1.15);
         }
         .recommended-card .tag {
             background-color: var(--primary-color);
             color: var(--background-dark);
-            font-weight: 700;
-            padding: 5px 15px;
+            font-weight: 900;
+            padding: 7px 20px;
             border-radius: 50px;
             margin-bottom: 15px;
             display: inline-block;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
         
         /* دکمه‌های Pricing */
         .pricing-card .btn {
             width: 100%;
             margin-top: 20px;
-            font-size: 1rem;
-            padding: 12px 0;
+            font-size: 1.1rem;
+            padding: 15px 0;
         }
-        .recommended-card .cta-btn {
-            box-shadow: 0 0 15px var(--accent-color);
+
+        /* ====================================================== */
+        /* --- بخش دیتاسنترها (Datacenters) --- */
+        /* ====================================================== */
+        .datacenters-section {
+            padding: 6rem 0;
+            background-color: var(--background-dark); 
+            text-align: center;
+        }
+        .datacenter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            margin-top: 3rem;
+        }
+        .datacenter-card {
+            background-color: var(--background-card);
+            padding: 25px 15px;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 127, 0, 0.1);
+        }
+        .datacenter-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 127, 0, 0.4);
+        }
+        .datacenter-card i.fa-map-pin {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .datacenter-card p {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+        .datacenter-card .ping-info {
+            font-size: 1rem;
+            color: #4CAF50;
+            font-weight: 500;
         }
         
+        /* استایل ویژه برای دیتاسنتر ایران */
+        .datacenter-card.aria-local {
+            background: linear-gradient(135deg, var(--primary-color), #FFB633);
+            color: var(--background-dark);
+            transform: scale(1.1); 
+            box-shadow: 0 15px 50px rgba(255, 127, 0, 0.8);
+        }
+        .datacenter-card.aria-local:hover {
+            transform: scale(1.15); 
+            box-shadow: 0 20px 60px rgba(255, 127, 0, 1);
+        }
+        .datacenter-card.aria-local i {
+            color: var(--background-dark);
+        }
+        .datacenter-card.aria-local .ping-info {
+            color: var(--background-dark);
+            font-weight: 900;
+        }
+
+        /* ====================================================== */
+        /* --- فوتر (Footer) --- */
+        /* ====================================================== */
+        .footer {
+            background-color: #101020;
+            padding: 4rem 0 2rem;
+            border-top: 5px solid var(--primary-color); 
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 3rem;
+            text-align: right;
+        }
+        .footer h5 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            padding-bottom: 5px;
+            position: relative;
+        }
+        /* خط زیر تیتر فوتر */
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+        .footer ul li a {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        .footer ul li a:hover {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        
+        /* بخش لوگو و شبکه‌های اجتماعی */
+        .footer-about .logo-link {
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .social-icons a {
+            font-size: 1.8rem;
+            margin-left: 18px;
+            color: var(--text-secondary);
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(255, 127, 0, 0.7);
+        }
+        
+        /* کپی رایت */
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
         /* ====================================================== */
         /* --- واکنش‌گرایی (Media Queries) --- */
         /* ====================================================== */
         @media (max-width: 992px) {
             .hero-content h2 {
-                font-size: 3rem;
-            }
-            .pricing-card {
-                margin: 20px 0;
+                font-size: 3.5rem;
             }
             .recommended-card {
                 transform: scale(1.0);
             }
+            .recommended-card:hover {
+                transform: scale(1.05);
+            }
         }
         @media (max-width: 768px) {
             .hero-content h2 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
-            .hero-content p {
-                font-size: 1.2rem;
-            }
-            .features-grid, .pricing-grid {
+            .features-grid, .pricing-grid, .footer-grid {
                 grid-template-columns: 1fr;
+            }
+            .footer-grid, .footer-links {
+                text-align: center;
+            }
+            .footer h5::after {
+                right: 50%;
+                transform: translateX(50%);
+            }
+            .datacenter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .datacenter-card.aria-local {
+                transform: scale(1.0); 
+            }
+            .datacenter-card.aria-local:hover {
+                transform: scale(1.05);
             }
         }
     </style>
@@ -386,7 +543,7 @@
                     <a href="#services">خدمات</a>
                     <a href="#pricing">تعرفه‌ها</a>
                     <a href="#features">ویژگی‌ها</a>
-                    <a href="#about">درباره ما</a>
+                    <a href="#datacenters">دیتاسنترها</a>
                 </nav>
                 <a href="#" class="btn primary-btn">ورود / ثبت نام</a>
             </div>
@@ -395,7 +552,6 @@
 
     <section class="hero-section">
         <div class="container">
-            <div class="star-bg"></div>
             <div class="hero-content">
                 <h2>آینده‌ی کسب‌وکار شما، روی <span style="color: var(--primary-color);">ابری سریع و مطمئن.</span></h2>
                 <p>سرویس‌های ابری قدرتمند با پایداری ۹۹.۹٪، پشتیبانی اختصاصی ۲۴/۷ و کمترین تاخیر شبکه در ایران.</p>
@@ -476,42 +632,48 @@
             <div class="pricing-grid">
                 
                 <div class="pricing-card">
-                    <h4>پلن پایه</h4>
-                    <p class="price">۴۰۰,۰۰۰<span dir="rtl"> تومان/ماه</span></p>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> ۱ هسته پردازشی (CPU)</li>
-                        <li><i class="fas fa-check-circle"></i> ۴ گیگابایت رم (RAM)</li>
-                        <li><i class="fas fa-check-circle"></i> ۵۰ گیگابایت فضای NVMe</li>
-                        <li><i class="fas fa-check-circle"></i> ۱ ترابایت ترافیک ماهانه</li>
-                        <li><i class="fas fa-times-circle" style="color: var(--text-secondary);"></i> پشتیبانی اختصاصی</li>
-                    </ul>
+                    <div>
+                        <h4>پلن پایه</h4>
+                        <p class="price">۴۰۰,۰۰۰<span dir="rtl"> تومان/ماه</span></p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> ۱ هسته پردازشی (CPU)</li>
+                            <li><i class="fas fa-check-circle"></i> ۴ گیگابایت رم (RAM)</li>
+                            <li><i class="fas fa-check-circle"></i> ۵۰ گیگابایت فضای NVMe</li>
+                            <li><i class="fas fa-check-circle"></i> ۱ ترابایت ترافیک ماهانه</li>
+                            <li><i class="fas fa-times-circle" style="color: var(--text-secondary);"></i> پشتیبانی اختصاصی</li>
+                        </ul>
+                    </div>
                     <a href="#" class="btn primary-btn">انتخاب این پلن</a>
                 </div>
 
                 <div class="pricing-card recommended-card">
-                    <span class="tag">پیشنهاد ما</span>
-                    <h4>پلن کسب‌وکار</h4>
-                    <p class="price">۸۵۰,۰۰۰<span dir="rtl"> تومان/ماه</span></p>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> ۴ هسته پردازشی (CPU)</li>
-                        <li><i class="fas fa-check-circle"></i> ۸ گیگابایت رم (RAM)</li>
-                        <li><i class="fas fa-check-circle"></i> ۱۰۰ گیگابایت فضای NVMe</li>
-                        <li><i class="fas fa-check-circle"></i> ۴ ترابایت ترافیک ماهانه</li>
-                        <li><i class="fas fa-check-circle"></i> پشتیبانی اختصاصی ۲۴/۷</li>
-                    </ul>
+                    <div>
+                        <span class="tag">پیشنهاد ما</span>
+                        <h4>پلن کسب‌وکار</h4>
+                        <p class="price">۸۵۰,۰۰۰<span dir="rtl"> تومان/ماه</span></p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> ۴ هسته پردازشی (CPU)</li>
+                            <li><i class="fas fa-check-circle"></i> ۸ گیگابایت رم (RAM)</li>
+                            <li><i class="fas fa-check-circle"></i> ۱۰۰ گیگابایت فضای NVMe</li>
+                            <li><i class="fas fa-check-circle"></i> ۴ ترابایت ترافیک ماهانه</li>
+                            <li><i class="fas fa-check-circle"></i> پشتیبانی اختصاصی ۲۴/۷</li>
+                        </ul>
+                    </div>
                     <a href="#" class="btn cta-btn">همین حالا شروع کنید</a>
                 </div>
                 
                 <div class="pricing-card">
-                    <h4>پلن سازمانی</h4>
-                    <p class="price">۱,۶۰۰,۰۰۰<span dir="rtl"> تومان/ماه</span></p>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> ۸ هسته پردازشی (CPU)</li>
-                        <li><i class="fas fa-check-circle"></i> ۱۶ گیگابایت رم (RAM)</li>
-                        <li><i class="fas fa-check-circle"></i> ۲۰۰ گیگابایت فضای NVMe</li>
-                        <li><i class="fas fa-check-circle"></i> ترافیک نامحدود</li>
-                        <li><i class="fas fa-check-circle"></i> پشتیبانی اختصاصی ۲۴/۷</li>
-                    </ul>
+                    <div>
+                        <h4>پلن سازمانی</h4>
+                        <p class="price">۱,۶۰۰,۰۰۰<span dir="rtl"> تومان/ماه</span></p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> ۸ هسته پردازشی (CPU)</li>
+                            <li><i class="fas fa-check-circle"></i> ۱۶ گیگابایت رم (RAM)</li>
+                            <li><i class="fas fa-check-circle"></i> ۲۰۰ گیگابایت فضای NVMe</li>
+                            <li><i class="fas fa-check-circle"></i> ترافیک نامحدود</li>
+                            <li><i class="fas fa-check-circle"></i> پشتیبانی اختصاصی ۲۴/۷</li>
+                        </ul>
+                    </div>
                     <a href="#" class="btn primary-btn">انتخاب این پلن</a>
                 </div>
                 
@@ -519,6 +681,121 @@
         </div>
     </section>
     
+    <section id="datacenters" class="datacenters-section">
+        <div class="container">
+            <div class="section-header">
+                <h3>پوشش جهانی، تجربه‌ی محلی</h3>
+                <p>شبکه‌ی گسترده‌ی AriaCloud در بهترین دیتاسنترهای جهان، نزدیک به کاربران شما.</p>
+            </div>
+            
+            <div class="datacenter-grid">
+                
+                <div class="datacenter-card aria-local">
+                    <i class="fas fa-map-pin"></i>
+                    <p>AriaCloud - تهران، ایران</p>
+                    <div class="ping-info">سرعت محلی و بومی (۰.۱ میلی‌ثانیه)</div>
+                </div>
 
-    </body>
+                <div class="datacenter-card">
+                    <i class="fas fa-map-pin"></i>
+                    <p>فرانکفورت، آلمان</p>
+                    <div class="ping-info">پینگ عالی اروپا (۸۰ms)</div>
+                </div>
+
+                <div class="datacenter-card">
+                    <i class="fas fa-map-pin"></i>
+                    <p>استانبول، ترکیه</p>
+                    <div class="ping-info">نزدیک‌ترین به ایران (۶۰ms)</div>
+                </div>
+                
+                <div class="datacenter-card">
+                    <i class="fas fa-map-pin"></i>
+                    <p>سنگاپور، آسیا</p>
+                    <div class="ping-info">بهترین برای آسیا (۱۸۰ms)</div>
+                </div>
+
+                <div class="datacenter-card">
+                    <i class="fas fa-map-pin"></i>
+                    <p>مونترال، کانادا</p>
+                    <div class="ping-info">مقرون به صرفه (۲۰۰ms)</div>
+                </div>
+
+                <div class="datacenter-card">
+                    <i class="fas fa-map-pin"></i>
+                    <p>هلسینکی، فنلاند</p>
+                    <div class="ping-info">امنیت و پایداری بالا (۹۰ms)</div>
+                </div>
+                
+                <div class="datacenter-card">
+                    <i class="fas fa-map-pin"></i>
+                    <p>نیویورک، آمریکا</p>
+                    <div class="ping-info">قدرتمندترین پاپ‌ها (۱۵۰ms)</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div class="footer-about">
+                    <a href="/" class="logo-link">
+                        <img src="Raw Banner-Icon.png" alt="AriaCloud Logo" class="logo-img">
+                    </a>
+                    <p style="color: var(--text-secondary); font-size: 1rem;">
+                        AriaCloud ارائه‌دهنده زیرساخت‌های ابری با تمرکز بر سرعت، پایداری و پشتیبانی بومی در ایران. همراه ما باشید در شبکه‌های اجتماعی:
+                    </p>
+                    <div class="social-icons" style="margin-top: 30px;">
+                        <a href="#" title="دیسکورد"><i class="fab fa-discord"></i></a>
+                        <a href="#" title="تلگرام"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" title="لینکدین"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="اینستاگرام"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h5>خدمات اصلی</h5>
+                    <ul>
+                        <li><a href="#services">سرورهای ابری (VPS)</a></li>
+                        <li><a href="#services">شبکه توزیع محتوا (CDN)</a></li>
+                        <li><a href="#services">هاستینگ ابری</a></li>
+                        <li><a href="#services">ذخیره‌سازی ابری</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h5>منابع</h5>
+                    <ul>
+                        <li><a href="#">مستندات</a></li>
+                        <li><a href="#">وبلاگ</a></li>
+                        <li><a href="#">مرکز آموزش</a></li>
+                        <li><a href="#">وضعیت سرورها</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h5>شرکت</h5>
+                    <ul>
+                        <li><a href="#about">درباره ما</a></li>
+                        <li><a href="#">فرصت‌های شغلی</a></li>
+                        <li><a href="#">حریم خصوصی</a></li>
+                        <li><a href="#">تماس با ما</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> AriaCloud. تمامی حقوق محفوظ است.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
 </html>
