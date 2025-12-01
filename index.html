@@ -81,15 +81,16 @@
             align-items: center;
         }
         
-        /* استایل لوگوی تصویری جدید (ارتفاع 75px) */
-        .logo-img {
+        /* استایل لوگوی SVG جدید (ارتفاع 75px) */
+        .logo-svg {
             height: 75px; /* **تغییر اعمال شده (بزرگتر)** */
             width: auto;
-            filter: invert(1) drop-shadow(0 0 10px var(--primary-color)); 
             transition: filter 0.3s;
+            /* رنگ‌دهی SVG توسط fill: #F4F4F4; در خود SVG انجام می‌شود */
+            filter: drop-shadow(0 0 10px var(--primary-color)); 
         }
-        .logo-img:hover {
-            filter: invert(1) drop-shadow(0 0 20px var(--accent-color));
+        .logo-svg:hover {
+            filter: drop-shadow(0 0 20px var(--accent-color));
         }
         .logo-link {
             display: flex;
@@ -273,7 +274,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            align-items: stretch; /* مطمئن شدن از هم‌اندازه بودن کارت‌ها */
+            align-items: stretch;
         }
         .pricing-card {
             background-color: var(--background-card);
@@ -537,7 +538,18 @@
         <div class="navbar">
             <div class="container">
                 <a href="/" class="logo-link">
-                    <img src="Raw Banner-Icon.png" alt="AriaCloud Logo" class="logo-img">
+                    <svg class="logo-svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" fill="#F4F4F4">
+                        <path d="M 60 40 C 60 25 45 20 35 25 C 25 15 10 20 10 35 C 5 35 0 40 0 45 C 0 55 10 60 20 60 L 70 60 C 80 60 90 55 90 45 C 90 40 85 35 80 35 C 80 20 65 25 60 40 Z" />
+                        <path d="M 70 20 C 70 10 60 5 50 10 C 40 5 30 10 30 20 C 25 20 20 25 20 30 C 20 35 25 40 30 40 L 70 40 C 75 40 80 35 80 30 C 80 25 75 20 70 20 Z" opacity="0.8" fill="url(#cloudGradient)" />
+
+                        <defs>
+                            <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:var(--primary-color);stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:var(--accent-color);stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <text x="50" y="50" font-family="Vazirmatn" font-size="15" fill="#F4F4F4" text-anchor="middle" style="font-weight: 700;">AriaCloud</text>
+                    </svg>
                 </a>
                 <nav class="nav-links">
                     <a href="#services">خدمات</a>
@@ -698,37 +710,37 @@
 
                 <div class="datacenter-card">
                     <i class="fas fa-map-pin"></i>
-                    <p>فرانکفورت، آلمان</p>
+                    <p>OVHcloud - فرانکفورت، آلمان</p>
                     <div class="ping-info">پینگ عالی اروپا (۸۰ms)</div>
                 </div>
 
                 <div class="datacenter-card">
                     <i class="fas fa-map-pin"></i>
-                    <p>استانبول، ترکیه</p>
+                    <p>Vultr - استانبول، ترکیه</p>
                     <div class="ping-info">نزدیک‌ترین به ایران (۶۰ms)</div>
                 </div>
                 
                 <div class="datacenter-card">
                     <i class="fas fa-map-pin"></i>
-                    <p>سنگاپور، آسیا</p>
+                    <p>Linode (Akamai) - سنگاپور</p>
                     <div class="ping-info">بهترین برای آسیا (۱۸۰ms)</div>
                 </div>
 
                 <div class="datacenter-card">
                     <i class="fas fa-map-pin"></i>
-                    <p>مونترال، کانادا</p>
+                    <p>AWS/Azure - مونترال، کانادا</p>
                     <div class="ping-info">مقرون به صرفه (۲۰۰ms)</div>
                 </div>
 
                 <div class="datacenter-card">
                     <i class="fas fa-map-pin"></i>
-                    <p>هلسینکی، فنلاند</p>
+                    <p>Hetzner - هلسینکی، فنلاند</p>
                     <div class="ping-info">امنیت و پایداری بالا (۹۰ms)</div>
                 </div>
                 
                 <div class="datacenter-card">
                     <i class="fas fa-map-pin"></i>
-                    <p>نیویورک، آمریکا</p>
+                    <p>DigitalOcean - نیویورک، آمریکا</p>
                     <div class="ping-info">قدرتمندترین پاپ‌ها (۱۵۰ms)</div>
                 </div>
 
@@ -742,7 +754,18 @@
                 
                 <div class="footer-about">
                     <a href="/" class="logo-link">
-                        <img src="Raw Banner-Icon.png" alt="AriaCloud Logo" class="logo-img">
+                        <svg class="logo-svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" fill="#F4F4F4">
+                            <path d="M 60 40 C 60 25 45 20 35 25 C 25 15 10 20 10 35 C 5 35 0 40 0 45 C 0 55 10 60 20 60 L 70 60 C 80 60 90 55 90 45 C 90 40 85 35 80 35 C 80 20 65 25 60 40 Z" />
+                            <path d="M 70 20 C 70 10 60 5 50 10 C 40 5 30 10 30 20 C 25 20 20 25 20 30 C 20 35 25 40 30 40 L 70 40 C 75 40 80 35 80 30 C 80 25 75 20 70 20 Z" opacity="0.8" fill="url(#cloudGradient)" />
+    
+                            <defs>
+                                <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:var(--primary-color);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:var(--accent-color);stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <text x="50" y="50" font-family="Vazirmatn" font-size="15" fill="#F4F4F4" text-anchor="middle" style="font-weight: 700;">AriaCloud</text>
+                        </svg>
                     </a>
                     <p style="color: var(--text-secondary); font-size: 1rem;">
                         AriaCloud ارائه‌دهنده زیرساخت‌های ابری با تمرکز بر سرعت، پایداری و پشتیبانی بومی در ایران. همراه ما باشید در شبکه‌های اجتماعی:
@@ -778,7 +801,7 @@
                 <div class="footer-links">
                     <h5>شرکت</h5>
                     <ul>
-                        <li><a href="#about">درباره ما</a></li>
+                        <li><a href="#">درباره ما</a></li>
                         <li><a href="#">فرصت‌های شغلی</a></li>
                         <li><a href="#">حریم خصوصی</a></li>
                         <li><a href="#">تماس با ما</a></li>
