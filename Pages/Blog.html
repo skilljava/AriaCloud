@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بلاگ آریاکلود</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- Hero Section -->
+  <section class="py-16 text-center">
+    <span class="inline-block px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm mb-6">بلاگ آریاکلود</span>
+    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+      <span>آموزش و </span>
+      <span class="bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">اخبار</span>
+    </h1>
+    <p class="text-lg text-gray-400">آموزش‌ها، راهنماها و آخرین اخبار دنیای هاستینگ و سرور</p>
+  </section>
+
+  <!-- Search & Categories -->
+  <section class="py-8">
+    <div class="container mx-auto px-4 lg:px-8 flex flex-col md:flex-row gap-6 justify-between items-center">
+      <!-- Search -->
+      <div class="relative w-full md:w-80">
+        <input type="text" placeholder="جستجو در مقالات..." class="pr-12 bg-gray-900/50 border border-gray-700 text-white rounded-lg w-full h-10 px-3">
+        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+
+      <!-- Categories -->
+      <div class="flex flex-wrap gap-2">
+        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-orange-500 to-amber-500 text-white">همه</button>
+        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:text-white">آموزش</button>
+        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:text-white">سرور بازی</button>
+        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:text-white">وردپرس</button>
+        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:text-white">امنیت</button>
+        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:text-white">اخبار</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Grid -->
+  <section class="py-12">
+    <div class="container mx-auto px-4 lg:px-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Example Post -->
+      <article class="group rounded-2xl bg-gradient-to-b from-gray-800/50 to-gray-900/50 border border-gray-800 hover:border-orange-500/30 overflow-hidden transition-all">
+        <!-- Image -->
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop" alt="Post" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute top-4 right-4">
+            <span class="px-3 py-1 rounded-full bg-orange-500/90 text-white text-xs font-medium">آموزش</span>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+          <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+            <span class="flex items-center gap-1">
+              📅 ۱۴۰۳/۰۹/۱۵
+            </span>
+            <span class="flex items-center gap-1">
+              ⏱ ۸ دقیقه
+            </span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-3 group-hover:text-orange-400">راهنمای کامل انتخاب سرور مجازی VPS مناسب</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">در این مقاله به بررسی نکات مهم در انتخاب سرور مجازی می‌پردازیم. از جمله میزان RAM، CPU و فضای ذخیره‌سازی مورد نیاز برای پروژه‌های مختلف.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-500">👤 علی محمدی</span>
+            <a href="#" class="text-orange-400 hover:text-orange-300 hover:bg-orange-500/10 px-2 py-1 rounded">ادامه مطلب →</a>
+          </div>
+        </div>
+      </article>
+      <!-- تکرار article برای هر پست -->
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center p-8 rounded-3xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/20">
+        <h3 class="text-2xl font-bold text-white mb-3">خبرنامه آریاکلود</h3>
+        <p class="text-gray-400 mb-6">جدیدترین مقالات، آموزش‌ها و تخفیف‌ها را در ایمیل خود دریافت کنید.</p>
+        <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input type="email" placeholder="ایمیل شما" class="bg-gray-900/50 border border-gray-700 text-white rounded-lg px-3 py-2 w-full">
+          <button class="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 px-6 py-2 rounded-lg text-white">عضویت</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
