@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>داشبورد آریاکلود</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- Container اصلی -->
+  <div class="min-h-screen pt-24 pb-16 container mx-auto px-4 lg:px-8">
+
+    <!-- Hero / خوش‌آمدگویی -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+      <div>
+        <h1 class="text-3xl font-bold mb-2">سلام، کاربر</h1>
+        <p class="text-gray-400">به داشبورد آریاکلود خوش آمدید</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="border border-gray-700 text-gray-300 hover:bg-gray-800 px-4 py-2 flex items-center gap-1">
+          اعلان‌ها
+        </button>
+        <button class="border border-red-500/30 text-red-400 hover:bg-red-500/10 px-4 py-2 flex items-center gap-1">
+          خروج
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="p-6 rounded-2xl bg-gray-800/50 border border-gray-800 text-center">
+        <div class="text-3xl font-bold text-orange-400 mb-2">3</div>
+        <div class="text-gray-400 text-sm">سرویس فعال</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-gray-800/50 border border-gray-800 text-center">
+        <div class="text-3xl font-bold text-blue-400 mb-2">1</div>
+        <div class="text-gray-400 text-sm">تیکت باز</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-gray-800/50 border border-gray-800 text-center">
+        <div class="text-3xl font-bold text-orange-400 mb-2">۰</div>
+        <div class="text-gray-400 text-sm">اعتبار کیف پول</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-gray-800/50 border border-gray-800 text-center">
+        <div class="text-3xl font-bold text-yellow-400 mb-2">1</div>
+        <div class="text-gray-400 text-sm">سرویس در حال انقضا</div>
+      </div>
+    </div>
+
+    <!-- Tabs شبیه سازی شده با بخش‌ها -->
+
+    <!-- Services -->
+    <section class="space-y-6 mb-12">
+      <div class="flex justify-between items-center">
+        <h2 class="text-xl font-bold">سرویس‌های شما</h2>
+        <button class="bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 rounded flex items-center gap-1">
+          + سفارش جدید
+        </button>
+      </div>
+
+      <div class="grid gap-6">
+        <div class="bg-gray-800/50 border border-gray-800 p-6 rounded-2xl flex flex-col lg:flex-row lg:justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+              VPS
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-semibold text-white">VPS Pro - سرور اصلی</h3>
+                <span class="bg-green-500/20 text-green-400 px-2 py-1 rounded-full">فعال</span>
+              </div>
+              <p class="text-gray-400 text-sm mb-2">پلن: حرفه‌ای</p>
+              <div class="flex flex-wrap gap-3 text-sm text-gray-500">
+                <span class="flex items-center gap-1">CPU: 4 Core</span>
+                <span class="flex items-center gap-1">RAM: 8 GB</span>
+                <span class="flex items-center gap-1">Storage: 100 GB NVMe</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col lg:items-end gap-2">
+            <div class="text-sm text-gray-400 flex items-center gap-1">
+              تمدید: ۱۴۰۳/۱۰/۱۵
+            </div>
+            <p class="text-lg font-bold text-orange-400">۳۹۹,۰۰۰ تومان/ماه</p>
+            <div class="flex gap-2">
+              <button class="border border-gray-700 text-gray-300 px-3 py-1 rounded">تمدید</button>
+              <button class="border border-gray-700 text-gray-300 px-3 py-1 rounded">مدیریت</button>
+            </div>
+          </div>
+        </div>
+        <!-- می‌توان سرویس‌های دیگر را مشابه اضافه کرد -->
+      </div>
+    </section>
+
+    <!-- Invoices -->
+    <section class="space-y-6 mb-12">
+      <h2 class="text-xl font-bold">صورتحساب‌ها</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-gray-700">
+              <th class="p-4 text-right text-gray-400 font-medium">شماره</th>
+              <th class="p-4 text-right text-gray-400 font-medium">تاریخ</th>
+              <th class="p-4 text-right text-gray-400 font-medium">مبلغ</th>
+              <th class="p-4 text-right text-gray-400 font-medium">وضعیت</th>
+              <th class="p-4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-800">
+              <td class="p-4 text-white">#INV-1234</td>
+              <td class="p-4 text-gray-400">۱۴۰۳/۰۹/۱۵</td>
+              <td class="p-4 text-white">۳۹۹,۰۰۰ تومان</td>
+              <td class="p-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm">پرداخت شده</span></td>
+              <td class="p-4"><button class="text-orange-400">دانلود</button></td>
+            </tr>
+            <!-- فاکتورهای دیگر -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tickets -->
+    <section class="space-y-6 mb-12">
+      <div class="flex justify-between items-center">
+        <h2 class="text-xl font-bold">تیکت‌های پشتیبانی</h2>
+        <button class="bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 rounded flex items-center gap-1">
+          + تیکت جدید
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b border-gray-700">
+              <th class="p-4 text-right text-gray-400 font-medium">شماره</th>
+              <th class="p-4 text-right text-gray-400 font-medium">موضوع</th>
+              <th class="p-4 text-right text-gray-400 font-medium">تاریخ</th>
+              <th class="p-4 text-right text-gray-400 font-medium">وضعیت</th>
+              <th class="p-4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-800">
+              <td class="p-4 text-white">#TKT-456</td>
+              <td class="p-4 text-white">مشکل در دسترسی SSH</td>
+              <td class="p-4 text-gray-400">۱۴۰۳/۰۹/۱۲</td>
+              <td class="p-4"><span class="bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full text-sm">پاسخ داده شده</span></td>
+              <td class="p-4"><button class="text-orange-400">مشاهده</button></td>
+            </tr>
+            <!-- تیکت‌های دیگر -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="space-y-6 mb-12">
+      <h2 class="text-xl font-bold">تنظیمات حساب</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gray-800/50 border border-gray-800 p-6 rounded-2xl space-y-4">
+          <h3 class="text-white font-semibold">اطلاعات کاربری</h3>
+          <div>
+            <label class="text-gray-400 text-sm">نام و نام خانوادگی</label>
+            <p class="text-white">کاربر</p>
+          </div>
+          <div>
+            <label class="text-gray-400 text-sm">ایمیل</label>
+            <p class="text-white">user@example.com</p>
+          </div>
+          <button class="border border-gray-700 text-gray-300 px-3 py-2 rounded">ویرایش اطلاعات</button>
+        </div>
+        <div class="bg-gray-800/50 border border-gray-800 p-6 rounded-2xl space-y-4">
+          <h3 class="text-white font-semibold">کیف پول</h3>
+          <div>
+            <label class="text-gray-400 text-sm">موجودی</label>
+            <p class="text-2xl font-bold text-orange-400">۰ تومان</p>
+          </div>
+          <button class="bg-gradient-to-r from-orange-500 to-amber-500 px-4 py-2 rounded">افزایش اعتبار</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
