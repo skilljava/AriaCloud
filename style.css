@@ -1,0 +1,119 @@
+/* فونت و ریشه رنگ‌ها */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --color-orange: #F97316;
+  --color-amber: #F59E0B;
+  --color-dark: #0A0A0A;
+}
+
+/* عمومی */
+* {
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #171717;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-orange), var(--color-amber));
+  border-radius: 4px;
+}
+
+/* selection */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: white;
+}
+
+/* ساختار اصلی */
+header, footer {
+  padding: 1rem;
+  text-align: center;
+  background-color: #111;
+}
+
+main {
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Animated Grid */
+.animated-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.05) 0,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 20px
+  );
+}
+
+/* متن های gradient */
+.text-gradient {
+  background: linear-gradient(to right, var(--color-orange), var(--color-amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Badge ساده */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* دکمه‌ها */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button-orange {
+  background: linear-gradient(to right, var(--color-orange), var(--color-amber));
+  color: white;
+}
+
+.button-orange:hover {
+  filter: brightness(1.1);
+}
+
+.button-outline {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.button-outline:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
